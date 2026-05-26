@@ -1,0 +1,780 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>William Tal — Revised 12-Week MSU Countdown</title><style>
+
+/* ═══════════════════════════════════════
+   SCREEN STYLES
+═══════════════════════════════════════ */
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #eef0f5;
+  color: #2d3748;
+  padding: 28px 18px;
+  max-width: 960px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+/* COVER PAGE */
+.cover {
+  background: white;
+  border-radius: 14px;
+  border: 1px solid #dde2ec;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  padding: 36px 40px 30px;
+  margin-bottom: 24px;
+}
+.cover-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+  flex-wrap: wrap;
+  border-bottom: 3px solid #c41e24;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+.cover-eyebrow {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #c41e24;
+  margin-bottom: 8px;
+}
+.cover h1 {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: #1a2744;
+  letter-spacing: -1px;
+  line-height: 1.1;
+}
+.cover h1 em { color: #c41e24; font-style: normal; }
+.cover-sub { font-size: 0.85rem; color: #718096; margin-top: 6px; }
+.cover-stats {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+.stat-box {
+  background: #f7f8fc;
+  border: 1px solid #dde2ec;
+  border-radius: 10px;
+  padding: 13px 18px;
+  text-align: center;
+  min-width: 84px;
+}
+.stat-box .n { font-size: 1.45rem; font-weight: 900; color: #1a2744; }
+.stat-box .n.red { color: #c41e24; }
+.stat-box .l { font-size: 0.63rem; text-transform: uppercase; letter-spacing: 1px; color: #a0aec0; margin-top: 2px; }
+
+/* KEY RULE */
+.key-rule {
+  background: #fff8f8;
+  border: 1px solid #fbd5d5;
+  border-left: 4px solid #c41e24;
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-size: 0.87rem;
+  color: #742424;
+}
+.key-rule strong { color: #c41e24; }
+
+/* PROGRESSION TIMELINE */
+.prog-section {
+  background: white;
+  border-radius: 14px;
+  border: 1px solid #dde2ec;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  padding: 22px 28px;
+  margin-bottom: 24px;
+}
+.section-eyebrow {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: #a0aec0;
+  margin-bottom: 18px;
+}
+.timeline-row {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 4px;
+  align-items: end;
+}
+.tl-col { text-align: center; }
+.tl-dot {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  border: 2px solid #dde2ec;
+  background: white;
+  margin: 0 auto 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.72rem; font-weight: 800;
+  color: #a0aec0;
+}
+.tl-dot.target { border-color: #c41e24; color: #c41e24; background: #fff8f8; }
+.tl-dot.goal   { border-color: #276749; color: #276749; background: #f0fff4; }
+.tl-connector {
+  height: 2px;
+  background: #e2e8f0;
+  margin: 0 -2px;
+  align-self: center;
+  margin-top: -22px;
+}
+.tl-date  { font-size: 0.62rem; color: #a0aec0; }
+.tl-time  { font-size: 0.82rem; font-weight: 800; color: #2d3748; margin-top: 2px; }
+
+/* PHASE DIVIDER */
+.phase-divider {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 32px 0 16px;
+}
+.phase-pill {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-radius: 6px;
+  padding: 8px 18px 8px 14px;
+  white-space: nowrap;
+}
+.phase-pill .p-num { font-size: 1.4rem; font-weight: 900; color: white; line-height: 1; }
+.phase-pill .p-text { }
+.phase-pill .p-title { font-size: 0.75rem; font-weight: 800; color: white; text-transform: uppercase; letter-spacing: 1px; }
+.phase-pill .p-sub   { font-size: 0.7rem; color: rgba(255,255,255,0.75); margin-top: 1px; }
+.phase-pill.p1 { background: #c41e24; }
+.phase-pill.p2 { background: #b7640a; }
+.phase-pill.p3 { background: #2b6cb0; }
+.phase-pill.p4 { background: #276749; }
+.phase-rule { flex: 1; height: 1px; background: #e2e8f0; }
+
+/* WEEK CARD */
+.week-card {
+  background: white;
+  border: 1px solid #dde2ec;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+.week-head {
+  background: #f7f8fc;
+  border-bottom: 1px solid #edf2f7;
+  padding: 13px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.wh-left {}
+.week-countdown { font-size: 0.65rem; font-weight: 800; letter-spacing: 2.5px; text-transform: uppercase; color: #c41e24; }
+.week-name { font-size: 1rem; font-weight: 800; color: #1a2744; margin-top: 2px; }
+.week-dates { font-size: 0.77rem; color: #a0aec0; margin-top: 1px; }
+.week-tag {
+  font-size: 0.71rem; font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 12px;
+  white-space: nowrap;
+  align-self: flex-start;
+  margin-top: 2px;
+}
+.tag-r { background: #fff0f0; color: #c41e24; border: 1px solid #fcc; }
+.tag-a { background: #fffaf0; color: #b7640a; border: 1px solid #fbd38d; }
+.tag-b { background: #ebf8ff; color: #2b6cb0; border: 1px solid #bee3f8; }
+.tag-g { background: #f0fff4; color: #276749; border: 1px solid #9ae6b4; }
+.tag-n { background: #f7f8fc; color: #4a5568; border: 1px solid #dde2ec; }
+
+/* SCHEDULE TABLE */
+.tbl-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; }
+.sched th {
+  background: #f7f8fc;
+  color: #a0aec0;
+  font-size: 0.67rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 8px 16px;
+  text-align: left;
+  font-weight: 700;
+  border-bottom: 1px solid #edf2f7;
+}
+.sched td {
+  padding: 9px 16px;
+  font-size: 0.84rem;
+  border-bottom: 1px solid #f0f4f8;
+  color: #4a5568;
+  vertical-align: top;
+}
+.sched tr:last-child td { border-bottom: none; }
+.sched tr:hover td { background: #fafbff; }
+.sched td:first-child { font-weight: 700; color: #1a2744; white-space: nowrap; width: 108px; }
+.sched td.ld { width: 68px; text-align: center; }
+.lo { color: #38a169; font-weight: 800; }
+.lm { color: #dd6b20; font-weight: 800; }
+.lh { color: #c41e24; font-weight: 800; }
+
+/* PILLS */
+.p { display: inline-block; padding: 2px 8px; border-radius: 7px; font-size: 0.69rem; font-weight: 700; margin: 1px; white-space: nowrap; }
+.pt  { background: #f0fff4; color: #276749; border: 1px solid #9ae6b4; }
+.gm  { background: #ebf8ff; color: #2b6cb0; border: 1px solid #90cdf4; }
+.rn  { background: #fff0f0; color: #c41e24; border: 1px solid #fcc; }
+.us  { background: #fffaf0; color: #b7640a; border: 1px solid #fbd38d; }
+.rs  { background: #faf5ff; color: #6b46c1; border: 1px solid #d6bcfa; }
+.tr  { background: #e6fffa; color: #2c7a7b; border: 1px solid #81e6d9; }
+.ts  { background: #fffbeb; color: #92400e; border: 1px solid #fcd34d; }
+
+/* CHECK-IN */
+.checkin {
+  background: #fafbff;
+  border-top: 2px solid #edf2f7;
+  padding: 16px 20px;
+}
+.ci-head {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: #c41e24;
+  margin-bottom: 12px;
+}
+.ci-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+.ci-box {
+  background: white;
+  border: 1px solid #dde2ec;
+  border-radius: 8px;
+  padding: 10px 13px;
+}
+.ci-lbl { font-size: 0.63rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #a0aec0; margin-bottom: 3px; }
+.ci-tgt { font-size: 0.83rem; font-weight: 700; color: #2d3748; }
+.ci-tgt .acc { color: #c41e24; }
+.ci-line {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid #f0f4f8;
+  font-size: 0.75rem;
+  color: #a0aec0;
+}
+
+/* CAMP CARD */
+.camp-card {
+  background: white;
+  border: 2px solid #1a2744;
+  border-radius: 14px;
+  padding: 30px;
+  text-align: center;
+  box-shadow: 0 4px 18px rgba(26,39,68,0.1);
+  margin-top: 8px;
+}
+.camp-card h3 { font-size: 1.2rem; font-weight: 900; color: #1a2744; }
+.camp-card p  { font-size: 0.85rem; color: #718096; margin: 6px 0 22px; }
+.final-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+.fb {
+  background: #f7f8fc;
+  border: 1px solid #dde2ec;
+  border-radius: 10px;
+  padding: 16px 8px;
+}
+.fb .fv { font-size: 1.2rem; font-weight: 900; color: #c41e24; }
+.fb .fl { font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.5px; color: #a0aec0; margin-top: 4px; }
+
+.footer-note { text-align: center; padding: 20px 0 6px; font-size: 0.7rem; color: #c0c8d8; }
+
+
+/* ═══════════════════════════════════════
+   PRINT STYLES
+═══════════════════════════════════════ */
+
+@media print {
+
+  @page {
+    size: letter;
+    margin: 0.6in 0.55in;
+  }
+  @page :first {
+    margin-top: 0.4in;
+  }
+
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    box-shadow: none !important;
+  }
+
+  body {
+    background: white !important;
+    padding: 0;
+    max-width: 100%;
+    font-size: 9.5pt;
+    color: #111;
+  }
+
+  /* COVER — stays on first page */
+  .cover {
+    border: none;
+    border-radius: 0;
+    padding: 0 0 16pt 0;
+    margin-bottom: 16pt;
+    page-break-after: avoid;
+  }
+  .cover-top {
+    border-bottom: 2.5pt solid #c41e24;
+    padding-bottom: 14pt;
+    margin-bottom: 14pt;
+  }
+  .cover h1 { font-size: 22pt; }
+  .cover-eyebrow { font-size: 7pt; letter-spacing: 2px; }
+  .cover-sub { font-size: 8.5pt; }
+  .stat-box {
+    background: #f5f5f5 !important;
+    border: 1pt solid #ccc !important;
+    padding: 8pt 12pt;
+    border-radius: 6pt;
+  }
+  .stat-box .n { font-size: 14pt; }
+  .stat-box .l { font-size: 6pt; }
+  .key-rule {
+    background: #fff8f8 !important;
+    border-left: 3pt solid #c41e24 !important;
+    border: 1pt solid #ecc !important;
+    font-size: 8.5pt;
+    padding: 9pt 12pt;
+  }
+
+  /* TIMELINE */
+  .prog-section {
+    border: 1pt solid #ccc;
+    border-radius: 6pt;
+    padding: 14pt 16pt;
+    margin-bottom: 16pt;
+    page-break-inside: avoid;
+  }
+  .tl-dot {
+    width: 28pt; height: 28pt;
+    font-size: 7pt;
+    border-width: 1.5pt;
+  }
+  .tl-dot.target { background: #fff0f0 !important; }
+  .tl-dot.goal   { background: #f0fff4 !important; }
+  .tl-date { font-size: 6pt; }
+  .tl-time { font-size: 7.5pt; }
+
+  /* PHASE DIVIDERS */
+  .phase-divider {
+    margin: 20pt 0 10pt;
+    page-break-before: always;
+    page-break-after: avoid;
+  }
+  .phase-divider:first-of-type {
+    page-break-before: avoid;
+  }
+  .phase-pill {
+    border-radius: 4pt;
+    padding: 6pt 14pt 6pt 10pt;
+  }
+  .phase-pill.p1 { background: #c41e24 !important; }
+  .phase-pill.p2 { background: #b7640a !important; }
+  .phase-pill.p3 { background: #2b6cb0 !important; }
+  .phase-pill.p4 { background: #276749 !important; }
+  .phase-pill .p-num   { font-size: 18pt; color: white !important; }
+  .phase-pill .p-title { font-size: 7.5pt; color: white !important; }
+  .phase-pill .p-sub   { font-size: 6.5pt; color: rgba(255,255,255,0.85) !important; }
+
+  /* WEEK CARDS */
+  .week-card {
+    border: 1pt solid #ccc;
+    border-radius: 6pt;
+    margin-bottom: 14pt;
+    page-break-inside: avoid;
+    overflow: visible;
+  }
+  .week-head {
+    background: #f5f5f5 !important;
+    border-bottom: 1pt solid #ddd;
+    padding: 8pt 12pt;
+    border-radius: 6pt 6pt 0 0;
+  }
+  .week-countdown { font-size: 6.5pt; letter-spacing: 2px; color: #c41e24 !important; }
+  .week-name  { font-size: 10.5pt; }
+  .week-dates { font-size: 7.5pt; }
+  .week-tag {
+    font-size: 6.5pt;
+    padding: 3pt 9pt;
+    border-radius: 8pt;
+  }
+  .tag-r { background: #fff0f0 !important; color: #c41e24 !important; border: 0.75pt solid #fcc !important; }
+  .tag-a { background: #fffaf0 !important; color: #b7640a !important; border: 0.75pt solid #fbd38d !important; }
+  .tag-b { background: #ebf8ff !important; color: #2b6cb0 !important; border: 0.75pt solid #bee3f8 !important; }
+  .tag-g { background: #f0fff4 !important; color: #276749 !important; border: 0.75pt solid #9ae6b4 !important; }
+  .tag-n { background: #f5f5f5 !important; color: #444 !important; border: 0.75pt solid #ccc !important; }
+
+  /* TABLE */
+  .tbl-wrap { overflow: visible; }
+  .sched th {
+    background: #f0f0f0 !important;
+    font-size: 6.5pt;
+    padding: 5pt 10pt;
+    border-bottom: 0.75pt solid #ddd;
+    color: #666 !important;
+  }
+  .sched td {
+    font-size: 8pt;
+    padding: 6pt 10pt;
+    border-bottom: 0.5pt solid #eee;
+    color: #222 !important;
+  }
+  .sched td:first-child { color: #111 !important; font-size: 8pt; width: 76pt; }
+  .sched td.ld { width: 48pt; }
+
+  /* PILLS */
+  .p { font-size: 6.5pt; padding: 1pt 6pt; border-radius: 4pt; border-width: 0.75pt !important; }
+  .pt  { background: #f0fff4 !important; color: #276749 !important; }
+  .gm  { background: #ebf8ff !important; color: #2b6cb0 !important; }
+  .rn  { background: #fff0f0 !important; color: #c41e24 !important; }
+  .us  { background: #fffaf0 !important; color: #b7640a !important; }
+  .rs  { background: #faf5ff !important; color: #6b46c1 !important; }
+  .tr  { background: #e6fffa !important; color: #2c7a7b !important; }
+  .ts  { background: #fffbeb !important; color: #92400e !important; }
+  .lo  { color: #276749 !important; }
+  .lm  { color: #b7640a !important; }
+  .lh  { color: #c41e24 !important; }
+
+  /* CHECK-IN */
+  .checkin {
+    background: #fafafa !important;
+    border-top: 1pt solid #ddd;
+    padding: 10pt 12pt;
+  }
+  .ci-head { font-size: 6pt; letter-spacing: 2px; color: #c41e24 !important; margin-bottom: 8pt; }
+  .ci-grid { gap: 7pt; }
+  .ci-box {
+    background: white !important;
+    border: 0.75pt solid #ccc !important;
+    border-radius: 4pt;
+    padding: 7pt 9pt;
+  }
+  .ci-lbl { font-size: 6pt; color: #888 !important; margin-bottom: 2pt; }
+  .ci-tgt { font-size: 8pt; color: #111 !important; }
+  .ci-tgt .acc { color: #c41e24 !important; }
+  .ci-line {
+    margin-top: 6pt;
+    padding-top: 5pt;
+    border-top: 0.5pt solid #e0e0e0;
+    font-size: 7pt;
+    color: #999 !important;
+    /* Make log lines look like writing lines */
+    border-bottom: 0.5pt dashed #bbb;
+    padding-bottom: 4pt;
+    min-height: 18pt;
+  }
+
+  /* CAMP CARD */
+  .camp-card {
+    border: 2pt solid #1a2744 !important;
+    border-radius: 8pt;
+    padding: 20pt;
+    page-break-inside: avoid;
+    margin-top: 6pt;
+  }
+  .camp-card h3 { font-size: 12pt; color: #1a2744 !important; }
+  .camp-card p  { font-size: 8pt; color: #666 !important; margin-bottom: 14pt; }
+  .final-grid { gap: 8pt; }
+  .fb {
+    background: #f5f5f5 !important;
+    border: 0.75pt solid #ccc !important;
+    border-radius: 6pt;
+    padding: 10pt 6pt;
+  }
+  .fb .fv { font-size: 11pt; color: #c41e24 !important; }
+  .fb .fl { font-size: 6pt; color: #888 !important; }
+
+  .footer-note { font-size: 7pt; color: #aaa !important; padding: 12pt 0 0; }
+}
+
+</style></head><body>
+<div class="cover">
+  <div class="cover-top">
+    <div>
+      <div class="cover-eyebrow">Montclair State Men's Soccer · 2026</div>
+      <h1>William Tal — <em>Revised 12-Week Countdown</em></h1>
+      <div class="cover-sub">Center Back · 6'5" · Reporting August 18 · 3-Mile Test: August 19</div>
+    </div>
+    <div class="cover-stats">
+      <div class="stat-box"><div class="n red">12</div><div class="l">Weeks</div></div>
+      <div class="stat-box"><div class="n">&lt;18:00</div><div class="l">3-Mile Goal</div></div>
+      <div class="stat-box"><div class="n">Aug 18</div><div class="l">Report Day</div></div>
+      <div class="stat-box"><div class="n">Healthy</div><div class="l">No Injuries</div></div>
+    </div>
+  </div>
+  <div class="key-rule">
+    <strong>Most Important Rule:</strong> No hard running on PT days. PT already includes single-leg strength, lunges, plyometrics, jump training, sled work, and heavy resistance. The goal is to arrive healthy, explosive, and ready to run under 18:00, not exhausted from summer training.
+  </div>
+</div>
+
+<div class="prog-section">
+  <div class="section-eyebrow">3-Mile Progression — Baseline Through Camp</div>
+  <div class="timeline-row">
+    <div class="tl-col"><div class="tl-dot">?</div><div class="tl-date">May 26</div>
+      <div class="tl-time">Baseline</div></div>
+    <div class="tl-col"><div class="tl-dot target">→</div><div class="tl-date">Jun 15</div><div class="tl-time">20:30</div></div>
+    <div class="tl-col"><div class="tl-dot target">→</div><div class="tl-date">Jun 27</div><div class="tl-time">20:00</div></div>
+    <div class="tl-col"><div class="tl-dot target">→</div><div class="tl-date">Jul 11</div><div class="tl-time">19:30</div></div>
+    <div class="tl-col"><div class="tl-dot target">→</div><div class="tl-date">Jul 25</div><div class="tl-time">19:00</div></div>
+    <div class="tl-col"><div class="tl-dot target">→</div><div class="tl-date">Aug 2</div><div class="tl-time">18:30</div></div>
+    <div class="tl-col"><div class="tl-dot target">→</div><div class="tl-date">Aug 8</div><div class="tl-time">18:00</div></div>
+    <div class="tl-col"><div class="tl-dot goal">✓</div><div class="tl-date">Aug 19</div><div class="tl-time">Camp Test</div></div>
+  </div>
+</div>
+
+<div class="phase-divider">
+  <div class="phase-pill p1">
+    <div class="p-num">1</div>
+    <div class="p-text">
+      <div class="p-title">Foundation · Weeks 12 – 8</div>
+      <div class="p-sub">May 25 – June 28 · Build aerobic base, protect the body</div>
+    </div>
+  </div>
+  <div class="phase-rule"></div>
+</div>
+<div class="week-card">
+  <div class="week-head">
+    <div class="wh-left">
+      <div class="week-countdown">Week 12 of 12</div>
+      <div class="week-name">Protect Match Performance</div>
+      <div class="week-dates">May 25 – May 31</div>
+    </div>
+    <span class="week-tag tag-r">Priority: Baseline + protect legs</span>
+  </div>
+  <div class="tbl-wrap">
+    <table class="sched"><thead><tr><th>Day</th><th>Training</th><th>Details</th><th class="ld">Load</th></tr></thead><tbody><tr><td>Mon May 25</td><td><span class="p pt">PT</span> <span class="p gm">Arms / Shoulders</span></td><td>PT is lower-body strength/power. No hard run. Optional 15–20 min walk or bike only.</td><td class="ld"><span class="lm">●●</span></td></tr><tr><td>Tue May 26</td><td><span class="p ts">AM 3-Mile Baseline Test</span> <span class="p us">PM USL Practice</span></td><td>Morning: controlled full-effort 3-mile test. Record total time and mile splits. Evening: USL practice, participate normally unless legs feel unusually heavy.</td><td class="ld"><span class="lh">●●●</span></td></tr><tr><td>Wed May 27</td><td><span class="p pt">PT</span> <span class="p rs">Mobility</span></td><td>PT only. Full stretch. No running.</td><td class="ld"><span class="lo">●</span></td></tr><tr><td>Thu May 28</td><td><span class="p us">USL Practice</span> <span class="p rn">Core Stability</span></td><td>Practice 8:30–10:00 PM at PSC. Add 10–12 min core stability only.</td><td class="ld"><span class="lm">●●</span></td></tr><tr><td>Fri May 29</td><td><span class="p pt">Recovery PT</span></td><td>Stretching, mobility, cupping, soft tissue, and light activation only. No strength, sleds, plyos, or jump work.</td><td class="ld"><span class="lo">●</span></td></tr><tr><td>Sat May 30</td><td><span class="p rs">Option B: Technical Touches + Mobility</span></td><td>No running, no conditioning, no testing, no lower-body lifting. Light ball work, mobility, hydration, and sleep. Stay fresh for next day match: Away @ Lancaster FC.</td><td class="ld"><span class="lo">●</span></td></tr><tr><td>Sun May 31</td><td><span class="p us">USL Match vs Lancaster FC</span></td><td>Match is the conditioning session. No extra running.</td><td class="ld"><span class="lh">●●●</span></td></tr></tbody></table>
+  </div>
+  <div class="checkin"><div class="ci-head">Weekly Check-In</div><div class="ci-grid"><div class="ci-box"><div class="ci-lbl">3-Mile Progress</div><div class="ci-tgt">Target: <span class="acc">See timeline</span></div><div class="ci-line">Actual / notes: ____________________</div></div><div class="ci-box"><div class="ci-lbl">Vertical / Explosive</div><div class="ci-tgt">Target: <span class="acc">Every 2 weeks</span></div><div class="ci-line">Vertical: _____ Broad: _____</div></div><div class="ci-box"><div class="ci-lbl">Core Stability</div><div class="ci-tgt">Target: <span class="acc">3 sessions</span></div><div class="ci-line">Completed: ___ / 3</div></div><div class="ci-box"><div class="ci-lbl">PT Sessions</div><div class="ci-tgt">Target: <span class="acc">3×, modified if game day</span></div><div class="ci-line">Completed: ___ / 3</div></div><div class="ci-box"><div class="ci-lbl">Body / Injury</div><div class="ci-tgt">Target: <span class="acc">No shin, knee, Achilles pain</span></div><div class="ci-line">Status 1–10: ___ Notes: __________</div></div><div class="ci-box"><div class="ci-lbl">Recovery</div><div class="ci-tgt">Target: <span class="acc">8+ hrs sleep · 100 oz water</span></div><div class="ci-line">Sleep: ___ Water: ✓ / ✗</div></div></div></div>
+</div>
+<div class="week-card">
+  <div class="week-head">
+    <div class="wh-left">
+      <div class="week-countdown">Week 11 of 12</div>
+      <div class="week-name">Build the Base</div>
+      <div class="week-dates">June 1 – June 7</div>
+    </div>
+    <span class="week-tag tag-n">Easy aerobic work only</span>
+  </div>
+  <div class="tbl-wrap">
+    <table class="sched"><thead><tr><th>Day</th><th>Training</th><th>Details</th><th class="ld">Load</th></tr></thead><tbody><tr><td>Mon Jun 1</td><td><span class="p pt">PT</span> <span class="p gm">Arms / Shoulders</span> <span class="p rn">2 mi easy</span></td><td>Only if legs feel good after Sunday match. Easy conversational pace.</td><td class="ld"><span class="lm">●●</span></td></tr><tr><td>Tue Jun 2</td><td><span class="p gm">Chest / Back</span> <span class="p us">USL Practice</span></td><td>Practice 7:30–9:00 PM at Rutgers UP2. No extra running.</td><td class="ld"><span class="lm">●●</span></td></tr><tr><td>Wed Jun 3</td><td><span class="p pt">PT</span> <span class="p rs">Mobility</span></td><td>PT only. No running.</td><td class="ld"><span class="lo">●</span></td></tr><tr><td>Thu Jun 4</td><td><span class="p us">USL Practice</span> <span class="p rn">Core Stability</span></td><td>Practice 8:30–10:00 PM at PSC. Add plank, side plank, dead bug.</td><td class="ld"><span class="lm">●●</span></td></tr><tr><td>Fri Jun 5</td><td><span class="p pt">PT</span> <span class="p rs">Recovery</span></td><td>PT only. Optional walk. No jogging if legs are heavy.</td><td class="ld"><span class="lo">●</span></td></tr><tr><td>Sat Jun 6</td><td><span class="p rs">Option B: Technical Touches + Mobility</span></td><td>No running, no conditioning, no testing, no lower-body lifting. Light ball work, mobility, hydration, and sleep. Stay fresh for next day match: Away @ Ocean City.</td><td class="ld"><span class="lo">●</span></td></tr><tr><td>Sun Jun 7</td><td><span class="p us">USL Match</span></td><td>Away @ Ocean City, 12:00 PM. Match counts as conditioning.</td><td class="ld"><span class="lh">●●●</span></td></tr></tbody></table>
+  </div>
+  <div class="checkin"><div class="ci-head">Weekly Check-In</div><div class="ci-grid"><div class="ci-box"><div class="ci-lbl">3-Mile Progress</div><div class="ci-tgt">Target: <span class="acc">See timeline</span></div><div class="ci-line">Actual / notes: ____________________</div></div><div class="ci-box"><div class="ci-lbl">Vertical / Explosive</div><div class="ci-tgt">Target: <span class="acc">Every 2 weeks</span></div><div class="ci-line">Vertical: _____ Broad: _____</div></div><div class="ci-box"><div class="ci-lbl">Core Stability</div><div class="ci-tgt">Target: <span class="acc">3 sessions</span></div><div class="ci-line">Completed: ___ / 3</div></div><div class="ci-box"><div class="ci-lbl">PT Sessions</div><div class="ci-tgt">Target: <span class="acc">3×, modified if game day</span></div><div class="ci-line">Completed: ___ / 3</div></div><div class="ci-box"><div class="ci-lbl">Body / Injury</div><div class="ci-tgt">Target: <span class="acc">No shin, knee, Achilles pain</span></div><div class="ci-line">Status 1–10: ___ Notes: __________</div></div><div class="ci-box"><div class="ci-lbl">Recovery</div><div class="ci-tgt">Target: <span class="acc">8+ hrs sleep · 100 oz water</span></div><div class="ci-line">Sleep: ___ Water: ✓ / ✗</div></div></div></div>
+</div>
+<div class="week-card">
+  <div class="week-head">
+    <div class="wh-left">
+      <div class="week-countdown">Week 10 of 12</div>
+      <div class="week-name">Introduce One Quality Run</div>
+      <div class="week-dates">June 8 – June 14</div>
+    </div>
+    <span class="week-tag tag-a">One hard run only</span>
+  </div>
+  <div class="tbl-wrap">
+    <table class="sched"><thead><tr><th>Day</th><th>Training</th><th>Details</th><th class="ld">Load</th></tr></thead><tbody><tr><td>Mon Jun 8</td><td><span class="p pt">PT</span> <span class="p gm">Arms / Shoulders</span> <span class="p rn">2 mi easy</span></td><td>Easy run only if recovered from Sunday match.</td><td class="ld"><span class="lm">●●</span></td></tr><tr><td>Tue Jun 9</td><td><span class="p gm">Chest / Back</span> <span class="p us">USL Practice</span></td><td>Practice 7:30–9:00 PM at Rutgers UP2.</td><td class="ld"><span class="lm">●●</span></td></tr><tr><td>Wed Jun 10</td><td><span class="p rs">Option B: Technical Touches + Mobility</span></td><td>No running, no conditioning, no testing, no lower-body lifting. Light ball work, mobility, hydration, and sleep. Stay fresh for next day match: Away @ Motown.</td><td class="ld"><span class="lo">●</span></td></tr><tr><td>Thu Jun 11</td><td><span class="p us">USL Game</span> <span class="p rs">Skip extra work</span></td><td>Away @ Motown, 7:00 PM. Treat game as the day’s conditioning. Skip duplicate practice.</td><td class="ld"><span class="lh">●●●</span></td></tr><tr><td>Fri Jun 12</td><td><span class="p pt">PT</span> <span class="p rs">Recovery</span></td><td>PT only. No tempo after Thursday game.</td><td class="ld"><span class="lo">●</span></td></tr><tr><td>Sat Jun 13</td><td><span class="p tr">MSU Track Workout #1</span></td><td>Warm-up 1 mi → 1200m @ 4:40 → 800m @ 3:10 → 400m @ 1:35 → 4×100 strides → cool-down ½ mi. Adjust pace if sore.</td><td class="ld"><span class="lh">●●●</span></td></tr><tr><td>Sun Jun 14</td><td><span class="p rs">Recovery</span></td><td>Walk, stretch, hydrate. No extra running.</td><td class="ld"><span class="lo">●</span></td></tr></tbody></table>
+  </div>
+  <div class="checkin"><div class="ci-head">Weekly Check-In</div><div class="ci-grid"><div class="ci-box"><div class="ci-lbl">3-Mile Progress</div><div class="ci-tgt">Target: <span class="acc">See timeline</span></div><div class="ci-line">Actual / notes: ____________________</div></div><div class="ci-box"><div class="ci-lbl">Vertical / Explosive</div><div class="ci-tgt">Target: <span class="acc">Every 2 weeks</span></div><div class="ci-line">Vertical: _____ Broad: _____</div></div><div class="ci-box"><div class="ci-lbl">Core Stability</div><div class="ci-tgt">Target: <span class="acc">3 sessions</span></div><div class="ci-line">Completed: ___ / 3</div></div><div class="ci-box"><div class="ci-lbl">PT Sessions</div><div class="ci-tgt">Target: <span class="acc">3×, modified if game day</span></div><div class="ci-line">Completed: ___ / 3</div></div><div class="ci-box"><div class="ci-lbl">Body / Injury</div><div class="ci-tgt">Target: <span class="acc">No shin, knee, Achilles pain</span></div><div class="ci-line">Status 1–10: ___ Notes: __________</div></div><div class="ci-box"><div class="ci-lbl">Recovery</div><div class="ci-tgt">Target: <span class="acc">8+ hrs sleep · 100 oz water</span></div><div class="ci-line">Sleep: ___ Water: ✓ / ✗</div></div></div></div>
+</div>
+<div class="week-card">
+  <div class="week-head">
+    <div class="wh-left">
+      <div class="week-countdown">Week 9 of 12</div>
+      <div class="week-name">Game-Heavy Week</div>
+      <div class="week-dates">June 15 – June 21</div>
+    </div>
+    <span class="week-tag tag-r">Protect legs around matches</span>
+  </div>
+  <div class="tbl-wrap">
+    <table class="sched"><thead><tr><th>Day</th><th>Training</th><th>Details</th><th class="ld">Load</th></tr></thead><tbody><tr><td>Mon Jun 15</td><td><span class="p pt">PT</span> <span class="p gm">Arms / Shoulders</span></td><td>No run. Vertical jump test before PT if fresh, otherwise move to Tuesday morning.</td><td class="ld"><span class="lm">●●</span></td></tr><tr><td>Tue Jun 16</td><td><span class="p rs">Option B: Technical Touches + Mobility</span></td><td>No running, no conditioning, no testing, no lower-body lifting. Light ball work, mobility, hydration, and sleep. Stay fresh for next day match: Home vs Motown.</td><td class="ld"><span class="lo">●</span></td></tr><tr><td>Wed Jun 17</td><td><span class="p pt">Modified PT</span> <span class="p us">USL Match</span></td><td>Home vs Motown, 7:00 PM. PT should be light mobility/activation only. No sled, jumps, or heavy legs.</td><td class="ld"><span class="lh">●●●</span></td></tr><tr><td>Thu Jun 18</td><td><span class="p us">USL Practice</span></td><td>Practice 8:30–10:00 PM. Keep effort controlled if legs are heavy from match.</td><td class="ld"><span class="lm">●●</span></td></tr><tr><td>Fri Jun 19</td><td><span class="p rs">Option B: Technical Touches + Mobility</span></td><td>No running, no conditioning, no testing, no lower-body lifting. Light ball work, mobility, hydration, and sleep. Stay fresh for next day match: Home vs Lancaster.</td><td class="ld"><span class="lo">●</span></td></tr><tr><td>Sat Jun 20</td><td><span class="p us">USL Match</span></td><td>Home vs Lancaster, 12:00 PM. Match replaces Saturday quality run.</td><td class="ld"><span class="lh">●●●</span></td></tr><tr><td>Sun Jun 21</td><td><span class="p rs">Full Recovery</span></td><td>Full recovery day. Walk, stretch, ice if needed.</td><td class="ld"><span class="lo">●</span></td></tr></tbody></table>
+  </div>
+  <div class="checkin"><div class="ci-head">Weekly Check-In</div><div class="ci-grid"><div class="ci-box"><div class="ci-lbl">3-Mile Progress</div><div class="ci-tgt">Target: <span class="acc">See timeline</span></div><div class="ci-line">Actual / notes: ____________________</div></div><div class="ci-box"><div class="ci-lbl">Vertical / Explosive</div><div class="ci-tgt">Target: <span class="acc">Every 2 weeks</span></div><div class="ci-line">Vertical: _____ Broad: _____</div></div><div class="ci-box"><div class="ci-lbl">Core Stability</div><div class="ci-tgt">Target: <span class="acc">3 sessions</span></div><div class="ci-line">Completed: ___ / 3</div></div><div class="ci-box"><div class="ci-lbl">PT Sessions</div><div class="ci-tgt">Target: <span class="acc">3×, modified if game day</span></div><div class="ci-line">Completed: ___ / 3</div></div><div class="ci-box"><div class="ci-lbl">Body / Injury</div><div class="ci-tgt">Target: <span class="acc">No shin, knee, Achilles pain</span></div><div class="ci-line">Status 1–10: ___ Notes: __________</div></div><div class="ci-box"><div class="ci-lbl">Recovery</div><div class="ci-tgt">Target: <span class="acc">8+ hrs sleep · 100 oz water</span></div><div class="ci-line">Sleep: ___ Water: ✓ / ✗</div></div></div></div>
+</div>
+<div class="week-card">
+  <div class="week-head">
+    <div class="wh-left">
+      <div class="week-countdown">Week 8 of 12</div>
+      <div class="week-name">Consolidate & Test</div>
+      <div class="week-dates">June 22 – June 28</div>
+    </div>
+    <span class="week-tag tag-r">3-Mile checkpoint</span>
+  </div>
+  <div class="tbl-wrap">
+    <table class="sched"><thead><tr><th>Day</th><th>Training</th><th>Details</th><th class="ld">Load</th></tr></thead><tbody><tr><td>Mon Jun 22</td><td><span class="p pt">PT</span> <span class="p gm">Arms / Shoulders</span> <span class="p rn">2 mi easy</span></td><td>Easy only. No pace pressure.</td><td class="ld"><span class="lm">●●</span></td></tr><tr><td>Tue Jun 23</td><td><span class="p gm">Chest / Back</span> <span class="p us">USL Practice</span></td><td>Practice 7:30–9:00 PM at Rutgers UP2.</td><td class="ld"><span class="lm">●●</span></td></tr><tr><td>Wed Jun 24</td><td><span class="p rs">Option B: Technical Touches + Mobility</span></td><td>No running, no conditioning, no testing, no lower-body lifting. Light ball work, mobility, hydration, and sleep. Stay fresh for next day match: Home vs Ocean City.</td><td class="ld"><span class="lo">●</span></td></tr><tr><td>Thu Jun 25</td><td><span class="p us">USL Game</span></td><td>Home vs Ocean City, 7:30 PM. Treat as match day. Skip duplicate practice.</td><td class="ld"><span class="lh">●●●</span></td></tr><tr><td>Fri Jun 26</td><td><span class="p pt">PT</span> <span class="p rs">Recovery</span></td><td>PT only. No jog if legs are heavy after game.</td><td class="ld"><span class="lo">●</span></td></tr><tr><td>Sat Jun 27</td><td><span class="p ts">3-Mile Time Trial</span></td><td><strong>Target: under 20:00.</strong> Record mile splits. Stop if pain alters form.</td><td class="ld"><span class="lh">●●●</span></td></tr><tr><td>Sun Jun 28</td><td><span class="p rs">Recovery</span></td><td>Walk, stretch, hydration. No extra running.</td><td class="ld"><span class="lo">●</span></td></tr></tbody></table>
+  </div>
+  <div class="checkin"><div class="ci-head">Weekly Check-In</div><div class="ci-grid"><div class="ci-box"><div class="ci-lbl">3-Mile Progress</div><div class="ci-tgt">Target: <span class="acc">See timeline</span></div><div class="ci-line">Actual / notes: ____________________</div></div><div class="ci-box"><div class="ci-lbl">Vertical / Explosive</div><div class="ci-tgt">Target: <span class="acc">Every 2 weeks</span></div><div class="ci-line">Vertical: _____ Broad: _____</div></div><div class="ci-box"><div class="ci-lbl">Core Stability</div><div class="ci-tgt">Target: <span class="acc">3 sessions</span></div><div class="ci-line">Completed: ___ / 3</div></div><div class="ci-box"><div class="ci-lbl">PT Sessions</div><div class="ci-tgt">Target: <span class="acc">3×, modified if game day</span></div><div class="ci-line">Completed: ___ / 3</div></div><div class="ci-box"><div class="ci-lbl">Body / Injury</div><div class="ci-tgt">Target: <span class="acc">No shin, knee, Achilles pain</span></div><div class="ci-line">Status 1–10: ___ Notes: __________</div></div><div class="ci-box"><div class="ci-lbl">Recovery</div><div class="ci-tgt">Target: <span class="acc">8+ hrs sleep · 100 oz water</span></div><div class="ci-line">Sleep: ___ Water: ✓ / ✗</div></div></div></div>
+</div>
+<div class="phase-divider">
+  <div class="phase-pill p2">
+    <div class="p-num">2</div>
+    <div class="p-text">
+      <div class="p-title">Build Fitness · Weeks 7 – 4</div>
+      <div class="p-sub">June 29 – July 26 · Tempo, sprint work, and controlled tests</div>
+    </div>
+  </div>
+  <div class="phase-rule"></div>
+</div>
+<div class="week-card">
+  <div class="week-head">
+    <div class="wh-left">
+      <div class="week-countdown">Week 7 of 12</div>
+      <div class="week-name">Tempo Control Week</div>
+      <div class="week-dates">June 29 – July 5</div>
+    </div>
+    <span class="week-tag tag-a">Tempo, not track</span>
+  </div>
+  <div class="tbl-wrap">
+    <table class="sched"><thead><tr><th>Day</th><th>Training</th><th>Details</th><th class="ld">Load</th></tr></thead><tbody><tr><td>Mon Jun 29</td><td><span class="p pt">PT</span> <span class="p gm">Arms / Shoulders</span> <span class="p rn">2 mi easy</span></td><td>Optional easy run only. No hard effort.</td><td class="ld"><span class="lm">●●</span></td></tr><tr><td>Tue Jun 30</td><td><span class="p rs">Option B: Technical Touches + Mobility</span></td><td>No running, no conditioning, no testing, no lower-body lifting. Light ball work, mobility, hydration, and sleep. Stay fresh for next day match: Home vs PA Classics.</td><td class="ld"><span class="lo">●</span></td></tr><tr><td>Wed Jul 1</td><td><span class="p pt">Modified PT</span> <span class="p us">USL Match</span></td><td>Home vs PA Classics, 7:00 PM. PT should be mobility/activation only.</td><td class="ld"><span class="lh">●●●</span></td></tr><tr><td>Thu Jul 2</td><td><span class="p us">USL Practice</span></td><td>Practice 7:30–9:00 PM. Controlled effort if sore.</td><td class="ld"><span class="lm">●●</span></td></tr><tr><td>Fri Jul 3</td><td><span class="p pt">PT</span> <span class="p rs">Recovery</span></td><td>PT only. Core stability if fresh.</td><td class="ld"><span class="lo">●</span></td></tr><tr><td>Sat Jul 4</td><td><span class="p rn">3 mi tempo</span></td><td>3 miles at ~6:55–7:05 pace. Should feel controlled, not all-out.</td><td class="ld"><span class="lh">●●●</span></td></tr><tr><td>Sun Jul 5</td><td><span class="p rs">Recovery</span></td><td>Recovery day. Optional light technical touches only.</td><td class="ld"><span class="lo">●</span></td></tr></tbody></table>
+  </div>
+  <div class="checkin"><div class="ci-head">Weekly Check-In</div><div class="ci-grid"><div class="ci-box"><div class="ci-lbl">3-Mile Progress</div><div class="ci-tgt">Target: <span class="acc">See timeline</span></div><div class="ci-line">Actual / notes: ____________________</div></div><div class="ci-box"><div class="ci-lbl">Vertical / Explosive</div><div class="ci-tgt">Target: <span class="acc">Every 2 weeks</span></div><div class="ci-line">Vertical: _____ Broad: _____</div></div><div class="ci-box"><div class="ci-lbl">Core Stability</div><div class="ci-tgt">Target: <span class="acc">3 sessions</span></div><div class="ci-line">Completed: ___ / 3</div></div><div class="ci-box"><div class="ci-lbl">PT Sessions</div><div class="ci-tgt">Target: <span class="acc">3×, modified if game day</span></div><div class="ci-line">Completed: ___ / 3</div></div><div class="ci-box"><div class="ci-lbl">Body / Injury</div><div class="ci-tgt">Target: <span class="acc">No shin, knee, Achilles pain</span></div><div class="ci-line">Status 1–10: ___ Notes: __________</div></div><div class="ci-box"><div class="ci-lbl">Recovery</div><div class="ci-tgt">Target: <span class="acc">8+ hrs sleep · 100 oz water</span></div><div class="ci-line">Sleep: ___ Water: ✓ / ✗</div></div></div></div>
+</div>
+<div class="week-card">
+  <div class="week-head">
+    <div class="wh-left">
+      <div class="week-countdown">Week 6 of 12</div>
+      <div class="week-name">Match + Test Week</div>
+      <div class="week-dates">July 6 – July 12</div>
+    </div>
+    <span class="week-tag tag-r">3-Mile test, manage match load</span>
+  </div>
+  <div class="tbl-wrap">
+    <table class="sched"><thead><tr><th>Day</th><th>Training</th><th>Details</th><th class="ld">Load</th></tr></thead><tbody><tr><td>Mon Jul 6</td><td><span class="p rs">Option B: Technical Touches + Mobility</span></td><td>No running, no conditioning, no testing, no lower-body lifting. Light ball work, mobility, hydration, and sleep. Stay fresh for next day match: Home vs NY Cosmos.</td><td class="ld"><span class="lo">●</span></td></tr><tr><td>Tue Jul 7</td><td><span class="p us">USL Match</span></td><td>Home vs NY Cosmos, 7:00 PM. Match replaces practice and conditioning.</td><td class="ld"><span class="lh">●●●</span></td></tr><tr><td>Wed Jul 8</td><td><span class="p pt">PT</span> <span class="p rs">Mobility</span></td><td>PT should be based on soreness from Tuesday match. No running.</td><td class="ld"><span class="lo">●</span></td></tr><tr><td>Thu Jul 9</td><td><span class="p us">USL Practice</span></td><td>Practice 7:30–9:00 PM at Rutgers UP2.</td><td class="ld"><span class="lm">●●</span></td></tr><tr><td>Fri Jul 10</td><td><span class="p pt">PT</span> <span class="p rs">Recovery</span></td><td>PT only. Prioritize sleep for test and match weekend.</td><td class="ld"><span class="lo">●</span></td></tr><tr><td>Sat Jul 11</td><td><span class="p rs">Option B: Technical Touches + Mobility</span></td><td>No running, no conditioning, no testing, no lower-body lifting. Light ball work, mobility, hydration, and sleep. Stay fresh for next day match: Home vs PA Classics.</td><td class="ld"><span class="lo">●</span></td></tr><tr><td>Sun Jul 12</td><td><span class="p us">USL Match</span></td><td>Home vs PA Classics, 5:00 PM at Spooky Nook. No extra running.</td><td class="ld"><span class="lh">●●●</span></td></tr></tbody></table>
+  </div>
+  <div class="checkin"><div class="ci-head">Weekly Check-In</div><div class="ci-grid"><div class="ci-box"><div class="ci-lbl">3-Mile Progress</div><div class="ci-tgt">Target: <span class="acc">See timeline</span></div><div class="ci-line">Actual / notes: ____________________</div></div><div class="ci-box"><div class="ci-lbl">Vertical / Explosive</div><div class="ci-tgt">Target: <span class="acc">Every 2 weeks</span></div><div class="ci-line">Vertical: _____ Broad: _____</div></div><div class="ci-box"><div class="ci-lbl">Core Stability</div><div class="ci-tgt">Target: <span class="acc">3 sessions</span></div><div class="ci-line">Completed: ___ / 3</div></div><div class="ci-box"><div class="ci-lbl">PT Sessions</div><div class="ci-tgt">Target: <span class="acc">3×, modified if game day</span></div><div class="ci-line">Completed: ___ / 3</div></div><div class="ci-box"><div class="ci-lbl">Body / Injury</div><div class="ci-tgt">Target: <span class="acc">No shin, knee, Achilles pain</span></div><div class="ci-line">Status 1–10: ___ Notes: __________</div></div><div class="ci-box"><div class="ci-lbl">Recovery</div><div class="ci-tgt">Target: <span class="acc">8+ hrs sleep · 100 oz water</span></div><div class="ci-line">Sleep: ___ Water: ✓ / ✗</div></div></div></div>
+</div>
+<div class="week-card">
+  <div class="week-head">
+    <div class="wh-left">
+      <div class="week-countdown">Week 5 of 12</div>
+      <div class="week-name">Sprint Mechanics Week</div>
+      <div class="week-dates">July 13 – July 19</div>
+    </div>
+    <span class="week-tag tag-a">Speed without overdoing volume</span>
+  </div>
+  <div class="tbl-wrap">
+    <table class="sched"><thead><tr><th>Day</th><th>Training</th><th>Details</th><th class="ld">Load</th></tr></thead><tbody><tr><td>Mon Jul 13</td><td><span class="p pt">PT</span> <span class="p gm">Arms / Shoulders</span> <span class="p rn">2 mi easy</span></td><td>Easy run only if recovered from Sunday match. Vertical test before PT if fresh.</td><td class="ld"><span class="lm">●●</span></td></tr><tr><td>Tue Jul 14</td><td><span class="p rs">Option B: Technical Touches + Mobility</span></td><td>No running, no conditioning, no testing, no lower-body lifting. Light ball work, mobility, hydration, and sleep. Stay fresh for next day match: Away @ NY Cosmos.</td><td class="ld"><span class="lo">●</span></td></tr><tr><td>Wed Jul 15</td><td><span class="p pt">Modified PT</span> <span class="p us">USL Match</span></td><td>Away @ NY Cosmos, 7:00 PM. PT should be activation/mobility only.</td><td class="ld"><span class="lh">●●●</span></td></tr><tr><td>Thu Jul 16</td><td><span class="p us">USL Practice</span></td><td>Practice 7:30–9:00 PM. Keep effort controlled after Wednesday match.</td><td class="ld"><span class="lm">●●</span></td></tr><tr><td>Fri Jul 17</td><td><span class="p pt">PT</span> <span class="p rs">Recovery</span></td><td>PT only. No tempo run.</td><td class="ld"><span class="lo">●</span></td></tr><tr><td>Sat Jul 18</td><td><span class="p tr">Sprint Session</span></td><td>Warm-up → 4×80 at ¾ pace → 3×30 → 3×40 → 3×50 → 3×60 → 2×80. Full recovery. Stop if hamstrings tighten.</td><td class="ld"><span class="lh">●●●</span></td></tr><tr><td>Sun Jul 19</td><td><span class="p rs">Recovery</span></td><td>Full recovery or light ball work. No conditioning.</td><td class="ld"><span class="lo">●</span></td></tr></tbody></table>
+  </div>
+  <div class="checkin"><div class="ci-head">Weekly Check-In</div><div class="ci-grid"><div class="ci-box"><div class="ci-lbl">3-Mile Progress</div><div class="ci-tgt">Target: <span class="acc">See timeline</span></div><div class="ci-line">Actual / notes: ____________________</div></div><div class="ci-box"><div class="ci-lbl">Vertical / Explosive</div><div class="ci-tgt">Target: <span class="acc">Every 2 weeks</span></div><div class="ci-line">Vertical: _____ Broad: _____</div></div><div class="ci-box"><div class="ci-lbl">Core Stability</div><div class="ci-tgt">Target: <span class="acc">3 sessions</span></div><div class="ci-line">Completed: ___ / 3</div></div><div class="ci-box"><div class="ci-lbl">PT Sessions</div><div class="ci-tgt">Target: <span class="acc">3×, modified if game day</span></div><div class="ci-line">Completed: ___ / 3</div></div><div class="ci-box"><div class="ci-lbl">Body / Injury</div><div class="ci-tgt">Target: <span class="acc">No shin, knee, Achilles pain</span></div><div class="ci-line">Status 1–10: ___ Notes: __________</div></div><div class="ci-box"><div class="ci-lbl">Recovery</div><div class="ci-tgt">Target: <span class="acc">8+ hrs sleep · 100 oz water</span></div><div class="ci-line">Sleep: ___ Water: ✓ / ✗</div></div></div></div>
+</div>
+<div class="week-card">
+  <div class="week-head">
+    <div class="wh-left">
+      <div class="week-countdown">Week 4 of 12</div>
+      <div class="week-name">End of Build Phase</div>
+      <div class="week-dates">July 20 – July 26</div>
+    </div>
+    <span class="week-tag tag-r">3-Mile checkpoint</span>
+  </div>
+  <div class="tbl-wrap">
+    <table class="sched"><thead><tr><th>Day</th><th>Training</th><th>Details</th><th class="ld">Load</th></tr></thead><tbody><tr><td>Mon Jul 20</td><td><span class="p pt">PT</span> <span class="p gm">Arms / Shoulders</span> <span class="p rn">2 mi easy</span></td><td>Easy only if legs feel good.</td><td class="ld"><span class="lm">●●</span></td></tr><tr><td>Tue Jul 21</td><td><span class="p gm">Chest / Back</span> <span class="p rs">Technical Touches</span></td><td>No listed USL match. Add 30 min technical touches if available.</td><td class="ld"><span class="lo">●</span></td></tr><tr><td>Wed Jul 22</td><td><span class="p pt">PT</span> <span class="p rs">Mobility</span></td><td>PT only. No running.</td><td class="ld"><span class="lo">●</span></td></tr><tr><td>Thu Jul 23</td><td><span class="p rs">Light Ball Work</span> <span class="p rn">Core Stability</span></td><td>45 min ball work or recovery depending on fatigue.</td><td class="ld"><span class="lo">●</span></td></tr><tr><td>Fri Jul 24</td><td><span class="p pt">PT</span> <span class="p rs">Recovery</span></td><td>PT only. Fresh legs for Saturday test.</td><td class="ld"><span class="lo">●</span></td></tr><tr><td>Sat Jul 25</td><td><span class="p ts">3-Mile Time Trial</span></td><td><strong>Target: under 19:00.</strong> Record splits. The goal is smooth pacing.</td><td class="ld"><span class="lh">●●●</span></td></tr><tr><td>Sun Jul 26</td><td><span class="p rs">Recovery</span></td><td>Full recovery. Review soreness and fatigue before final phase.</td><td class="ld"><span class="lo">●</span></td></tr></tbody></table>
+  </div>
+  <div class="checkin"><div class="ci-head">Weekly Check-In</div><div class="ci-grid"><div class="ci-box"><div class="ci-lbl">3-Mile Progress</div><div class="ci-tgt">Target: <span class="acc">See timeline</span></div><div class="ci-line">Actual / notes: ____________________</div></div><div class="ci-box"><div class="ci-lbl">Vertical / Explosive</div><div class="ci-tgt">Target: <span class="acc">Every 2 weeks</span></div><div class="ci-line">Vertical: _____ Broad: _____</div></div><div class="ci-box"><div class="ci-lbl">Core Stability</div><div class="ci-tgt">Target: <span class="acc">3 sessions</span></div><div class="ci-line">Completed: ___ / 3</div></div><div class="ci-box"><div class="ci-lbl">PT Sessions</div><div class="ci-tgt">Target: <span class="acc">3×, modified if game day</span></div><div class="ci-line">Completed: ___ / 3</div></div><div class="ci-box"><div class="ci-lbl">Body / Injury</div><div class="ci-tgt">Target: <span class="acc">No shin, knee, Achilles pain</span></div><div class="ci-line">Status 1–10: ___ Notes: __________</div></div><div class="ci-box"><div class="ci-lbl">Recovery</div><div class="ci-tgt">Target: <span class="acc">8+ hrs sleep · 100 oz water</span></div><div class="ci-line">Sleep: ___ Water: ✓ / ✗</div></div></div></div>
+</div>
+<div class="phase-divider">
+  <div class="phase-pill p3">
+    <div class="p-num">3</div>
+    <div class="p-text">
+      <div class="p-title">Sharpen · Weeks 3 – 2</div>
+      <div class="p-sub">July 27 – August 9 · Shorter quality, final 3-mile test</div>
+    </div>
+  </div>
+  <div class="phase-rule"></div>
+</div>
+<div class="week-card">
+  <div class="week-head">
+    <div class="wh-left">
+      <div class="week-countdown">Week 3 of 12</div>
+      <div class="week-name">Sharpen the Speed</div>
+      <div class="week-dates">July 27 – August 2</div>
+    </div>
+    <span class="week-tag tag-b">Shorter, faster, controlled</span>
+  </div>
+  <div class="tbl-wrap">
+    <table class="sched"><thead><tr><th>Day</th><th>Training</th><th>Details</th><th class="ld">Load</th></tr></thead><tbody><tr><td>Mon Jul 27</td><td><span class="p pt">PT</span> <span class="p gm">Arms / Shoulders</span></td><td>No run. Vertical jump test if fresh.</td><td class="ld"><span class="lm">●●</span></td></tr><tr><td>Tue Jul 28</td><td><span class="p gm">Chest / Back</span> <span class="p rs">Technical Touches</span></td><td>Upper body plus 30 min technical touches.</td><td class="ld"><span class="lo">●</span></td></tr><tr><td>Wed Jul 29</td><td><span class="p pt">PT</span> <span class="p rs">Mobility</span></td><td>PT only. No running.</td><td class="ld"><span class="lo">●</span></td></tr><tr><td>Thu Jul 30</td><td><span class="p rs">Light Ball Work</span> <span class="p rn">Core Stability</span></td><td>Touch work and core stability. No hard conditioning.</td><td class="ld"><span class="lo">●</span></td></tr><tr><td>Fri Jul 31</td><td><span class="p pt">PT</span> <span class="p rs">Recovery</span></td><td>PT only. Hydrate and sleep.</td><td class="ld"><span class="lo">●</span></td></tr><tr><td>Sat Aug 1</td><td><span class="p tr">6×200m Speed Session</span></td><td>Warm-up → 6×200m @ 38 sec with full recovery → cool-down. Form over volume.</td><td class="ld"><span class="lh">●●●</span></td></tr><tr><td>Sun Aug 2</td><td><span class="p ts">Controlled 3-Mile Check</span></td><td><strong>Target: under 18:30.</strong> If Saturday speed caused soreness, move this to Monday and do recovery today.</td><td class="ld"><span class="lm">●●</span></td></tr></tbody></table>
+  </div>
+  <div class="checkin"><div class="ci-head">Weekly Check-In</div><div class="ci-grid"><div class="ci-box"><div class="ci-lbl">3-Mile Progress</div><div class="ci-tgt">Target: <span class="acc">See timeline</span></div><div class="ci-line">Actual / notes: ____________________</div></div><div class="ci-box"><div class="ci-lbl">Vertical / Explosive</div><div class="ci-tgt">Target: <span class="acc">Every 2 weeks</span></div><div class="ci-line">Vertical: _____ Broad: _____</div></div><div class="ci-box"><div class="ci-lbl">Core Stability</div><div class="ci-tgt">Target: <span class="acc">3 sessions</span></div><div class="ci-line">Completed: ___ / 3</div></div><div class="ci-box"><div class="ci-lbl">PT Sessions</div><div class="ci-tgt">Target: <span class="acc">3×, modified if game day</span></div><div class="ci-line">Completed: ___ / 3</div></div><div class="ci-box"><div class="ci-lbl">Body / Injury</div><div class="ci-tgt">Target: <span class="acc">No shin, knee, Achilles pain</span></div><div class="ci-line">Status 1–10: ___ Notes: __________</div></div><div class="ci-box"><div class="ci-lbl">Recovery</div><div class="ci-tgt">Target: <span class="acc">8+ hrs sleep · 100 oz water</span></div><div class="ci-line">Sleep: ___ Water: ✓ / ✗</div></div></div></div>
+</div>
+<div class="week-card">
+  <div class="week-head">
+    <div class="wh-left">
+      <div class="week-countdown">Week 2 of 12</div>
+      <div class="week-name">Camp Simulation Week</div>
+      <div class="week-dates">August 3 – August 9</div>
+    </div>
+    <span class="week-tag tag-r">Final real test</span>
+  </div>
+  <div class="tbl-wrap">
+    <table class="sched"><thead><tr><th>Day</th><th>Training</th><th>Details</th><th class="ld">Load</th></tr></thead><tbody><tr><td>Mon Aug 3</td><td><span class="p pt">PT</span> <span class="p gm">Arms / Shoulders</span></td><td>PT plus upper body. No extra running.</td><td class="ld"><span class="lm">●●</span></td></tr><tr><td>Tue Aug 4</td><td><span class="p gm">Chest / Back</span> <span class="p rs">Technical Touches</span></td><td>Upper body. Keep legs fresh.</td><td class="ld"><span class="lo">●</span></td></tr><tr><td>Wed Aug 5</td><td><span class="p pt">PT</span> <span class="p rs">Mobility</span></td><td>PT only. Ask PT to avoid excessive soreness this week.</td><td class="ld"><span class="lo">●</span></td></tr><tr><td>Thu Aug 6</td><td><span class="p rn">2 mi easy</span> <span class="p rn">Core Stability</span></td><td>Easy run with 4 relaxed strides. No grind.</td><td class="ld"><span class="lm">●●</span></td></tr><tr><td>Fri Aug 7</td><td><span class="p pt">Light PT</span> <span class="p rs">Recovery</span></td><td>Light PT only, no heavy sleds/jumps if testing Saturday.</td><td class="ld"><span class="lo">●</span></td></tr><tr><td>Sat Aug 8</td><td><span class="p ts">Final 3-Mile Time Trial</span></td><td><strong>Target: 18:00 or faster.</strong> This is the last hard test before camp.</td><td class="ld"><span class="lh">●●●</span></td></tr><tr><td>Sun Aug 9</td><td><span class="p rs">Full Recovery</span></td><td>Full recovery. Walk, stretch, hydrate, sleep.</td><td class="ld"><span class="lo">●</span></td></tr></tbody></table>
+  </div>
+  <div class="checkin"><div class="ci-head">Weekly Check-In</div><div class="ci-grid"><div class="ci-box"><div class="ci-lbl">3-Mile Progress</div><div class="ci-tgt">Target: <span class="acc">See timeline</span></div><div class="ci-line">Actual / notes: ____________________</div></div><div class="ci-box"><div class="ci-lbl">Vertical / Explosive</div><div class="ci-tgt">Target: <span class="acc">Every 2 weeks</span></div><div class="ci-line">Vertical: _____ Broad: _____</div></div><div class="ci-box"><div class="ci-lbl">Core Stability</div><div class="ci-tgt">Target: <span class="acc">3 sessions</span></div><div class="ci-line">Completed: ___ / 3</div></div><div class="ci-box"><div class="ci-lbl">PT Sessions</div><div class="ci-tgt">Target: <span class="acc">3×, modified if game day</span></div><div class="ci-line">Completed: ___ / 3</div></div><div class="ci-box"><div class="ci-lbl">Body / Injury</div><div class="ci-tgt">Target: <span class="acc">No shin, knee, Achilles pain</span></div><div class="ci-line">Status 1–10: ___ Notes: __________</div></div><div class="ci-box"><div class="ci-lbl">Recovery</div><div class="ci-tgt">Target: <span class="acc">8+ hrs sleep · 100 oz water</span></div><div class="ci-line">Sleep: ___ Water: ✓ / ✗</div></div></div></div>
+</div>
+<div class="phase-divider">
+  <div class="phase-pill p4">
+    <div class="p-num">4</div>
+    <div class="p-text">
+      <div class="p-title">Taper · Week 1</div>
+      <div class="p-sub">August 10 – August 18 · Arrive fresh</div>
+    </div>
+  </div>
+  <div class="phase-rule"></div>
+</div>
+<div class="week-card">
+  <div class="week-head">
+    <div class="wh-left">
+      <div class="week-countdown">Week 1 of 12</div>
+      <div class="week-name">Taper — Protect What You Built</div>
+      <div class="week-dates">August 10 – August 18</div>
+    </div>
+    <span class="week-tag tag-g">Arrive fresh, not exhausted</span>
+  </div>
+  <div class="tbl-wrap">
+    <table class="sched"><thead><tr><th>Day</th><th>Training</th><th>Details</th><th class="ld">Load</th></tr></thead><tbody><tr><td>Mon Aug 10</td><td><span class="p pt">Light PT</span> <span class="p gm">Arms / Shoulders</span></td><td>PT should be lighter this week. No heavy leg soreness.</td><td class="ld"><span class="lo">●</span></td></tr><tr><td>Tue Aug 11</td><td><span class="p rn">2 mi easy</span> <span class="p rs">Mobility</span></td><td>Easy 2 miles. Stop feeling like you could do more.</td><td class="ld"><span class="lo">●</span></td></tr><tr><td>Wed Aug 12</td><td><span class="p pt">Light PT</span> <span class="p rs">Stretch</span></td><td>Mobility and activation only. No hard lower-body work.</td><td class="ld"><span class="lo">●</span></td></tr><tr><td>Thu Aug 13</td><td><span class="p rs">Light Ball Work</span> <span class="p rn">Core Stability</span></td><td>30–45 minutes. Touches, passing, light movement.</td><td class="ld"><span class="lo">●</span></td></tr><tr><td>Fri Aug 14</td><td><span class="p pt">Final Light PT</span></td><td>Light activation only. No sleds, heavy resistance, or jump volume.</td><td class="ld"><span class="lo">●</span></td></tr><tr><td>Sat Aug 15</td><td><span class="p tr">4×200 relaxed strides</span></td><td>Relaxed, smooth 200s at about 80–85%, full recovery. Not a workout to prove fitness.</td><td class="ld"><span class="lm">●●</span></td></tr><tr><td>Sun Aug 16</td><td><span class="p rs">Walk + Stretch</span></td><td>Easy walk, stretch, hydration. Pack gear.</td><td class="ld"><span class="lo">●</span></td></tr><tr><td>Mon Aug 17</td><td><span class="p rs">Full Rest</span></td><td>Full rest. Sleep, hydrate, eat normally.</td><td class="ld"><span class="lo">●</span></td></tr><tr><td>Tue Aug 18</td><td><span class="p ts">REPORT TO CAMP</span></td><td><strong>Arrive healthy, confident, and fresh.</strong></td><td class="ld"><span class="lo">●</span></td></tr></tbody></table>
+  </div>
+  <div class="checkin"><div class="ci-head">Weekly Check-In</div><div class="ci-grid"><div class="ci-box"><div class="ci-lbl">3-Mile Progress</div><div class="ci-tgt">Target: <span class="acc">See timeline</span></div><div class="ci-line">Actual / notes: ____________________</div></div><div class="ci-box"><div class="ci-lbl">Vertical / Explosive</div><div class="ci-tgt">Target: <span class="acc">Every 2 weeks</span></div><div class="ci-line">Vertical: _____ Broad: _____</div></div><div class="ci-box"><div class="ci-lbl">Core Stability</div><div class="ci-tgt">Target: <span class="acc">3 sessions</span></div><div class="ci-line">Completed: ___ / 3</div></div><div class="ci-box"><div class="ci-lbl">PT Sessions</div><div class="ci-tgt">Target: <span class="acc">3×, modified if game day</span></div><div class="ci-line">Completed: ___ / 3</div></div><div class="ci-box"><div class="ci-lbl">Body / Injury</div><div class="ci-tgt">Target: <span class="acc">No shin, knee, Achilles pain</span></div><div class="ci-line">Status 1–10: ___ Notes: __________</div></div><div class="ci-box"><div class="ci-lbl">Recovery</div><div class="ci-tgt">Target: <span class="acc">8+ hrs sleep · 100 oz water</span></div><div class="ci-line">Sleep: ___ Water: ✓ / ✗</div></div></div></div>
+</div>
+<div class="camp-card">
+  <h3>William's Ideal Camp Profile</h3>
+  <p>If we were creating the perfect August 18 scorecard for William, this is what we want to see.</p>
+  <div class="final-grid">
+    <div class="fb"><div class="fv">17:15–17:30</div><div class="fl">3-Mile Run</div></div>
+    <div class="fb"><div class="fv">&lt;1.80</div><div class="fl">10-Yard Sprint</div></div>
+    <div class="fb"><div class="fv">&lt;4.25</div><div class="fl">30-Yard Sprint</div></div>
+    <div class="fb"><div class="fv">28&quot;+</div><div class="fl">Vertical Jump</div></div>
+    <div class="fb"><div class="fv">8'6&quot;+</div><div class="fl">Broad Jump</div></div>
+    <div class="fb"><div class="fv">12+</div><div class="fl">Pull-Ups</div></div>
+    <div class="fb"><div class="fv">405</div><div class="fl">Trap-Bar Deadlift</div></div>
+    <div class="fb"><div class="fv">Healthy</div><div class="fl">Flexible / No Injuries</div></div>
+  </div>
+</div>
+
+<div class="camp-card">
+  <h3>Soccer & Mental Readiness</h3>
+  <p>These are the traits that make the physical work matter once preseason starts.</p>
+  <div class="final-grid">
+    <div class="fb"><div class="fv">Air</div><div class="fl">Dominant In The Air</div></div>
+    <div class="fb"><div class="fv">Voice</div><div class="fl">Strong Communicator</div></div>
+    <div class="fb"><div class="fv">Pass</div><div class="fl">Accurate Long Passer</div></div>
+    <div class="fb"><div class="fv">Both</div><div class="fl">Comfortable On Both Feet</div></div>
+    <div class="fb"><div class="fv">1v1</div><div class="fl">Reliable Defender</div></div>
+    <div class="fb"><div class="fv">Coach</div><div class="fl">Coachable</div></div>
+    <div class="fb"><div class="fv">Work</div><div class="fl">Consistent Work Rate</div></div>
+    <div class="fb"><div class="fv">Calm</div><div class="fl">Confident, Not Arrogant</div></div>
+  </div>
+</div>
+<div class="footer-note">Revised plan: PT protected, one quality running day per week, matches counted as conditioning.</div>
+</body></html>

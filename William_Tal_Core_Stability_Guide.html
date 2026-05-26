@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>William Tal — Core Stability Guide</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #eef0f5;
+  color: #2d3748;
+  padding: 28px 18px;
+  max-width: 960px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+.cover {
+  background: white;
+  border-radius: 14px;
+  border: 1px solid #dde2ec;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  padding: 36px 40px 30px;
+  margin-bottom: 24px;
+}
+
+.cover-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+  flex-wrap: wrap;
+  border-bottom: 3px solid #c41e24;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+
+.cover-eyebrow {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #c41e24;
+  margin-bottom: 8px;
+}
+
+.cover h1 {
+  font-size: 2.15rem;
+  font-weight: 900;
+  color: #1a2744;
+  letter-spacing: -1px;
+  line-height: 1.1;
+}
+
+.cover h1 em { color: #c41e24; font-style: normal; }
+
+.cover-sub {
+  font-size: 0.88rem;
+  color: #718096;
+  margin-top: 8px;
+}
+
+.cover-stats {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+.stat-box {
+  background: #f7f8fc;
+  border: 1px solid #dde2ec;
+  border-radius: 10px;
+  padding: 13px 18px;
+  text-align: center;
+  min-width: 92px;
+}
+
+.stat-box .n {
+  font-size: 1.35rem;
+  font-weight: 900;
+  color: #1a2744;
+}
+
+.stat-box .n.red { color: #c41e24; }
+
+.stat-box .l {
+  font-size: 0.63rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #a0aec0;
+  margin-top: 2px;
+}
+
+.key-rule {
+  background: #fff8f8;
+  border: 1px solid #fbd5d5;
+  border-left: 4px solid #c41e24;
+  border-radius: 8px;
+  padding: 13px 16px;
+  font-size: 0.88rem;
+  color: #742424;
+}
+
+.key-rule strong { color: #c41e24; }
+
+.phase-divider {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 30px 0 16px;
+}
+
+.phase-pill {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-radius: 6px;
+  padding: 8px 18px 8px 14px;
+  white-space: nowrap;
+  background: #c41e24;
+}
+
+.phase-pill.blue { background: #2b6cb0; }
+.phase-pill.green { background: #276749; }
+.phase-pill.orange { background: #b7640a; }
+
+.phase-pill .p-num {
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: white;
+  line-height: 1;
+}
+
+.phase-pill .p-title {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.phase-pill .p-sub {
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.78);
+  margin-top: 1px;
+}
+
+.phase-rule { flex: 1; height: 1px; background: #e2e8f0; }
+
+.week-card {
+  background: white;
+  border: 1px solid #dde2ec;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.week-head {
+  background: #f7f8fc;
+  border-bottom: 1px solid #edf2f7;
+  padding: 14px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.week-countdown {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: #c41e24;
+}
+
+.week-name {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #1a2744;
+  margin-top: 2px;
+}
+
+.week-dates {
+  font-size: 0.78rem;
+  color: #a0aec0;
+  margin-top: 1px;
+}
+
+.week-tag {
+  font-size: 0.71rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 12px;
+  white-space: nowrap;
+  align-self: flex-start;
+  margin-top: 2px;
+}
+
+.tag-r { background: #fff0f0; color: #c41e24; border: 1px solid #fcc; }
+.tag-a { background: #fffaf0; color: #b7640a; border: 1px solid #fbd38d; }
+.tag-b { background: #ebf8ff; color: #2b6cb0; border: 1px solid #bee3f8; }
+.tag-g { background: #f0fff4; color: #276749; border: 1px solid #9ae6b4; }
+.tag-n { background: #f7f8fc; color: #4a5568; border: 1px solid #dde2ec; }
+
+.tbl-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; }
+
+.sched th {
+  background: #f7f8fc;
+  color: #a0aec0;
+  font-size: 0.67rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 8px 16px;
+  text-align: left;
+  font-weight: 700;
+  border-bottom: 1px solid #edf2f7;
+}
+
+.sched td {
+  padding: 10px 16px;
+  font-size: 0.84rem;
+  border-bottom: 1px solid #f0f4f8;
+  color: #4a5568;
+  vertical-align: top;
+}
+
+.sched tr:last-child td { border-bottom: none; }
+.sched td:first-child { font-weight: 700; color: #1a2744; white-space: nowrap; width: 145px; }
+
+.p {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 7px;
+  font-size: 0.69rem;
+  font-weight: 700;
+  margin: 1px;
+  white-space: nowrap;
+}
+.pt  { background: #f0fff4; color: #276749; border: 1px solid #9ae6b4; }
+.gm  { background: #ebf8ff; color: #2b6cb0; border: 1px solid #90cdf4; }
+.rn  { background: #fff0f0; color: #c41e24; border: 1px solid #fcc; }
+.us  { background: #fffaf0; color: #b7640a; border: 1px solid #fbd38d; }
+.rs  { background: #faf5ff; color: #6b46c1; border: 1px solid #d6bcfa; }
+.tr  { background: #e6fffa; color: #2c7a7b; border: 1px solid #81e6d9; }
+.ts  { background: #fffbeb; color: #92400e; border: 1px solid #fcd34d; }
+
+.checkin {
+  background: #fafbff;
+  border-top: 2px solid #edf2f7;
+  padding: 16px 20px;
+}
+
+.ci-head {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: #c41e24;
+  margin-bottom: 12px;
+}
+
+.ci-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.ci-box {
+  background: white;
+  border: 1px solid #dde2ec;
+  border-radius: 8px;
+  padding: 10px 13px;
+}
+
+.ci-lbl {
+  font-size: 0.63rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #a0aec0;
+  margin-bottom: 3px;
+}
+
+.ci-tgt {
+  font-size: 0.83rem;
+  font-weight: 700;
+  color: #2d3748;
+}
+
+.ci-tgt .acc { color: #c41e24; }
+
+.camp-card {
+  background: white;
+  border: 2px solid #1a2744;
+  border-radius: 14px;
+  padding: 30px;
+  text-align: center;
+  box-shadow: 0 4px 18px rgba(26,39,68,0.1);
+  margin-top: 8px;
+  margin-bottom: 20px;
+}
+
+.camp-card h3 {
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: #1a2744;
+}
+
+.camp-card p {
+  font-size: 0.85rem;
+  color: #718096;
+  margin: 6px 0 22px;
+}
+
+.final-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.fb {
+  background: #f7f8fc;
+  border: 1px solid #dde2ec;
+  border-radius: 10px;
+  padding: 16px 8px;
+}
+
+.fb .fv {
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: #c41e24;
+}
+
+.fb .fl {
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #a0aec0;
+  margin-top: 4px;
+}
+
+.footer-note {
+  text-align: center;
+  padding: 20px 0 6px;
+  font-size: 0.7rem;
+  color: #c0c8d8;
+}
+
+@media print {
+  @page { size: letter; margin: 0.6in 0.55in; }
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; box-shadow: none !important; }
+  body { background: white !important; padding: 0; max-width: 100%; font-size: 9.5pt; color: #111; }
+  .cover { border: none; border-radius: 0; padding: 0 0 16pt 0; margin-bottom: 16pt; page-break-after: avoid; }
+  .cover-top { border-bottom: 2.5pt solid #c41e24; padding-bottom: 14pt; margin-bottom: 14pt; }
+  .cover h1 { font-size: 22pt; }
+  .cover-eyebrow { font-size: 7pt; letter-spacing: 2px; }
+  .cover-sub { font-size: 8.5pt; }
+  .stat-box { background: #f5f5f5 !important; border: 1pt solid #ccc !important; padding: 8pt 12pt; border-radius: 6pt; }
+  .stat-box .n { font-size: 13pt; }
+  .stat-box .l { font-size: 6pt; }
+  .key-rule { background: #fff8f8 !important; border-left: 3pt solid #c41e24 !important; border: 1pt solid #ecc !important; font-size: 8.5pt; padding: 9pt 12pt; }
+  .phase-divider { margin: 20pt 0 10pt; page-break-after: avoid; }
+  .phase-pill { border-radius: 4pt; padding: 6pt 14pt 6pt 10pt; }
+  .phase-pill .p-num { font-size: 18pt; color: white !important; }
+  .phase-pill .p-title { font-size: 7.5pt; color: white !important; }
+  .phase-pill .p-sub { font-size: 6.5pt; color: rgba(255,255,255,0.85) !important; }
+  .week-card { border: 1pt solid #ccc; border-radius: 6pt; margin-bottom: 14pt; page-break-inside: avoid; overflow: visible; }
+  .week-head { background: #f5f5f5 !important; border-bottom: 1pt solid #ddd; padding: 8pt 12pt; border-radius: 6pt 6pt 0 0; }
+  .week-countdown { font-size: 6.5pt; letter-spacing: 2px; color: #c41e24 !important; }
+  .week-name { font-size: 10.5pt; }
+  .week-dates { font-size: 7.5pt; }
+  .week-tag { font-size: 6.5pt; padding: 3pt 9pt; border-radius: 8pt; }
+  .tbl-wrap { overflow: visible; }
+  .sched th { background: #f0f0f0 !important; font-size: 6.5pt; padding: 5pt 10pt; border-bottom: 0.75pt solid #ddd; color: #666 !important; }
+  .sched td { font-size: 8pt; padding: 6pt 10pt; border-bottom: 0.5pt solid #eee; color: #222 !important; }
+  .sched td:first-child { color: #111 !important; font-size: 8pt; width: 90pt; }
+  .p { font-size: 6.5pt; padding: 1pt 6pt; border-radius: 4pt; border-width: 0.75pt !important; }
+  .checkin { background: #fafafa !important; border-top: 1pt solid #ddd; padding: 10pt 12pt; }
+  .ci-head { font-size: 6pt; letter-spacing: 2px; color: #c41e24 !important; margin-bottom: 8pt; }
+  .ci-grid { gap: 7pt; }
+  .ci-box { background: white !important; border: 0.75pt solid #ccc !important; border-radius: 4pt; padding: 7pt 9pt; }
+  .ci-lbl { font-size: 6pt; color: #888 !important; margin-bottom: 2pt; }
+  .ci-tgt { font-size: 8pt; color: #111 !important; }
+  .camp-card { border: 2pt solid #1a2744 !important; border-radius: 8pt; padding: 20pt; page-break-inside: avoid; margin-top: 6pt; }
+  .camp-card h3 { font-size: 12pt; color: #1a2744 !important; }
+  .camp-card p { font-size: 8pt; color: #666 !important; margin-bottom: 14pt; }
+  .final-grid { gap: 8pt; }
+  .fb { background: #f5f5f5 !important; border: 0.75pt solid #ccc !important; border-radius: 6pt; padding: 10pt 6pt; }
+  .fb .fv { font-size: 11pt; color: #c41e24 !important; }
+  .fb .fl { font-size: 6pt; color: #888 !important; }
+}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="cover-top">
+    <div>
+      <div class="cover-eyebrow">William Tal · Montclair State Soccer Preparation</div>
+      <h1>Core Stability <em>Guide</em></h1>
+      <div class="cover-sub">A practical soccer-specific core program for balance, contact strength, aerial control, sprint posture, and injury prevention.</div>
+    </div>
+    <div class="cover-stats">
+      <div class="stat-box"><div class="n red">10–15</div><div class="l">Minutes</div></div>
+      <div class="stat-box"><div class="n">2–3×</div><div class="l">Per Week</div></div>
+      <div class="stat-box"><div class="n">Core A/B</div><div class="l">Rotation</div></div>
+      <div class="stat-box"><div class="n">Form</div><div class="l">Over Reps</div></div>
+    </div>
+  </div>
+  <div class="key-rule">
+    <strong>Simple Definition:</strong> Core stability is the ability to keep the trunk strong and controlled while the arms and legs move. For William, it helps him stay balanced in contact, jump stronger, sprint cleaner, change direction, and protect his lower back.
+  </div>
+</div>
+
+<div class="camp-card">
+  <h3>What Core Stability Is, And What It Is Not</h3>
+  <p>This is not about doing hundreds of sit-ups. It is about building a strong, stable platform so William can run, jump, defend, and absorb contact without losing posture.</p>
+  <div class="final-grid">
+    <div class="fb"><div class="fv">Balance</div><div class="fl">Stay Strong In Contact</div></div>
+    <div class="fb"><div class="fv">Posture</div><div class="fl">Cleaner Sprint Mechanics</div></div>
+    <div class="fb"><div class="fv">Power</div><div class="fl">Transfer Force</div></div>
+    <div class="fb"><div class="fv">Protect</div><div class="fl">Lower Back / Hips</div></div>
+  </div>
+</div>
+
+<div class="phase-divider">
+  <div class="phase-pill">
+    <div class="p-num">1</div>
+    <div>
+      <div class="p-title">Why It Matters</div>
+      <div class="p-sub">For a 6'5" center back</div>
+    </div>
+  </div>
+  <div class="phase-rule"></div>
+</div>
+
+<div class="week-card">
+  <div class="week-head">
+    <div>
+      <div class="week-countdown">Soccer Application</div>
+      <div class="week-name">How Core Stability Helps William Play Center Back</div>
+      <div class="week-dates">The goal is not visible abs. The goal is performance.</div>
+    </div>
+    <span class="week-tag tag-g">Game Transfer</span>
+  </div>
+  <div class="tbl-wrap">
+    <table class="sched">
+      <thead><tr><th>Situation</th><th>What Core Stability Does</th><th>Why It Matters</th></tr></thead>
+      <tbody>
+        <tr><td>Aerial Duels</td><td>Keeps his body strong and controlled while jumping and landing.</td><td>Helps him win headers and stay balanced after contact.</td></tr>
+        <tr><td>1v1 Defending</td><td>Allows him to absorb contact and change direction without collapsing at the hips.</td><td>Improves body control when defending quick attackers.</td></tr>
+        <tr><td>Sprinting</td><td>Keeps the torso stable so the legs can drive efficiently.</td><td>Helps recovery runs and acceleration.</td></tr>
+        <tr><td>Long Passing</td><td>Transfers power from the hips through the trunk into the striking leg.</td><td>Supports stronger, cleaner diagonal balls and clearances.</td></tr>
+        <tr><td>Injury Prevention</td><td>Improves control of the hips, pelvis, groin, and lower back.</td><td>Reduces unnecessary stress during cutting, jumping, and landing.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="phase-divider">
+  <div class="phase-pill blue">
+    <div class="p-num">2</div>
+    <div>
+      <div class="p-title">Core A</div>
+      <div class="p-sub">Foundation stability · 10 minutes</div>
+    </div>
+  </div>
+  <div class="phase-rule"></div>
+</div>
+
+<div class="week-card">
+  <div class="week-head">
+    <div>
+      <div class="week-countdown">Workout A</div>
+      <div class="week-name">Foundation Core Stability</div>
+      <div class="week-dates">Use this on lighter days or after upper-body gym work.</div>
+    </div>
+    <span class="week-tag tag-b">10 Minutes</span>
+  </div>
+  <div class="tbl-wrap">
+    <table class="sched">
+      <thead><tr><th>Exercise</th><th>Sets / Reps</th><th>How To Do It</th><th>Coaching Cue</th></tr></thead>
+      <tbody>
+        <tr><td><span class="p gm">Front Plank</span></td><td>3 × 45 sec</td><td>Elbows under shoulders, straight line from head to heels.</td><td>Brace like someone is about to bump you.</td></tr>
+        <tr><td><span class="p gm">Side Plank Left</span></td><td>3 × 30 sec</td><td>Elbow under shoulder, hips high, body straight.</td><td>Do not let the hips sag.</td></tr>
+        <tr><td><span class="p gm">Side Plank Right</span></td><td>3 × 30 sec</td><td>Same as left side.</td><td>Both sides should feel equally strong.</td></tr>
+        <tr><td><span class="p gm">Dead Bugs</span></td><td>3 × 10 each side</td><td>Lie on back, opposite arm and leg extend slowly.</td><td>Keep lower back pressed into the floor.</td></tr>
+        <tr><td><span class="p gm">Bird Dogs</span></td><td>3 × 10 each side</td><td>On hands/knees, opposite arm and leg extend under control.</td><td>Move slowly, do not rotate the hips.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="checkin">
+    <div class="ci-head">Quality Standard</div>
+    <div class="ci-grid">
+      <div class="ci-box"><div class="ci-lbl">Effort</div><div class="ci-tgt">Target: <span class="acc">Controlled</span></div></div>
+      <div class="ci-box"><div class="ci-lbl">Pain</div><div class="ci-tgt">Target: <span class="acc">None</span></div></div>
+      <div class="ci-box"><div class="ci-lbl">Stop Rule</div><div class="ci-tgt">Target: <span class="acc">Form breaks = stop</span></div></div>
+    </div>
+  </div>
+</div>
+
+<div class="phase-divider">
+  <div class="phase-pill green">
+    <div class="p-num">3</div>
+    <div>
+      <div class="p-title">Core B</div>
+      <div class="p-sub">Soccer contact strength · 10–15 minutes</div>
+    </div>
+  </div>
+  <div class="phase-rule"></div>
+</div>
+
+<div class="week-card">
+  <div class="week-head">
+    <div>
+      <div class="week-countdown">Workout B</div>
+      <div class="week-name">Contact, Groin, And Anti-Rotation Strength</div>
+      <div class="week-dates">Use this when he has time and feels fresh. Do not force it if legs are heavy.</div>
+    </div>
+    <span class="week-tag tag-g">10–15 Minutes</span>
+  </div>
+  <div class="tbl-wrap">
+    <table class="sched">
+      <thead><tr><th>Exercise</th><th>Sets / Reps</th><th>How To Do It</th><th>Why It Helps</th></tr></thead>
+      <tbody>
+        <tr><td><span class="p pt">Pallof Press</span></td><td>3 × 12 each side</td><td>Band or cable at chest height. Press straight out and resist rotation.</td><td>Helps him stay strong when bumped or pulled off balance.</td></tr>
+        <tr><td><span class="p pt">Copenhagen Plank</span></td><td>3 × 20 sec each side</td><td>Top leg on bench, hold side plank position. Start with knee-supported version if needed.</td><td>Builds groin/adductor strength for cutting, tackling, and lateral defending.</td></tr>
+        <tr><td><span class="p pt">Hanging Knee Raises</span></td><td>3 × 10</td><td>Hang from bar, raise knees under control, no swinging.</td><td>Builds lower-ab and hip-flexor control.</td></tr>
+        <tr><td><span class="p pt">Farmer Carries</span></td><td>3 × 40 yards</td><td>Carry heavy dumbbells, tall posture, slow controlled steps.</td><td>Improves bracing, posture, grip, and contact strength.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="checkin">
+    <div class="ci-head">Progression</div>
+    <div class="ci-grid">
+      <div class="ci-box"><div class="ci-lbl">Week 1–2</div><div class="ci-tgt">Target: <span class="acc">Learn form</span></div></div>
+      <div class="ci-box"><div class="ci-lbl">Week 3–6</div><div class="ci-tgt">Target: <span class="acc">Add control</span></div></div>
+      <div class="ci-box"><div class="ci-lbl">Week 7+</div><div class="ci-tgt">Target: <span class="acc">Add difficulty only if clean</span></div></div>
+    </div>
+  </div>
+</div>
+
+<div class="phase-divider">
+  <div class="phase-pill orange">
+    <div class="p-num">4</div>
+    <div>
+      <div class="p-title">Weekly Use</div>
+      <div class="p-sub">How it fits into the main plan</div>
+    </div>
+  </div>
+  <div class="phase-rule"></div>
+</div>
+
+<div class="week-card">
+  <div class="week-head">
+    <div>
+      <div class="week-countdown">Weekly Placement</div>
+      <div class="week-name">When William Should Do Core Stability</div>
+      <div class="week-dates">Short, consistent, and never forced when tired.</div>
+    </div>
+    <span class="week-tag tag-a">2–3× Per Week</span>
+  </div>
+  <div class="tbl-wrap">
+    <table class="sched">
+      <thead><tr><th>Day</th><th>Core Plan</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Monday</td><td><span class="p gm">Core A</span></td><td>Good day after arms/shoulders. Keep it clean and controlled.</td></tr>
+        <tr><td>Thursday</td><td><span class="p pt">Core B</span></td><td>Best if legs feel good after practice. Skip Copenhagen planks if groin is sore.</td></tr>
+        <tr><td>Saturday No Game Next Day</td><td><span class="p gm">Core A or B</span></td><td>Optional, based on how he feels after the run/workout.</td></tr>
+        <tr><td>Saturday Before Game</td><td><span class="p rs">Skip or Light Core A Only</span></td><td>No fatigue. Game freshness comes first.</td></tr>
+        <tr><td>PT Days</td><td><span class="p rs">Optional Only</span></td><td>If PT already includes a lot of lower-body work, do not add extra stress.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="week-card">
+  <div class="week-head">
+    <div>
+      <div class="week-countdown">Safety Rules</div>
+      <div class="week-name">How To Know If The Core Work Is Too Much</div>
+      <div class="week-dates">Core work should make him stronger, not sore and slow.</div>
+    </div>
+    <span class="week-tag tag-r">Stop If Needed</span>
+  </div>
+  <div class="tbl-wrap">
+    <table class="sched">
+      <thead><tr><th>Red Flag</th><th>What It Means</th><th>What To Do</th></tr></thead>
+      <tbody>
+        <tr><td>Lower back pain</td><td>He is losing position or overusing the back.</td><td>Stop, reduce time, and use easier versions.</td></tr>
+        <tr><td>Groin soreness</td><td>Copenhagen plank or lateral work may be too aggressive.</td><td>Skip Copenhagen plank for 3–5 days.</td></tr>
+        <tr><td>Hip flexor tightness</td><td>Too much knee raise work or fatigue from running.</td><td>Reduce hanging knee raises and stretch hip flexors.</td></tr>
+        <tr><td>Form breaks</td><td>The set has gone too long.</td><td>End the set. Quality beats time.</td></tr>
+        <tr><td>Heavy legs before match</td><td>Total load is too high.</td><td>Skip core or do only light mobility.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="camp-card">
+  <h3>Simple Rule For William</h3>
+  <p>If he finishes core work feeling taller, tighter, and more controlled, it was the right amount. If he finishes sore, tight, or tired, it was too much.</p>
+  <div class="final-grid">
+    <div class="fb"><div class="fv">Short</div><div class="fl">10–15 Minutes</div></div>
+    <div class="fb"><div class="fv">Clean</div><div class="fl">Perfect Form</div></div>
+    <div class="fb"><div class="fv">Stable</div><div class="fl">No Hip Sag</div></div>
+    <div class="fb"><div class="fv">Fresh</div><div class="fl">Never Before Games</div></div>
+  </div>
+</div>
+
+<div class="footer-note">Core Stability Guide · William Tal · Montclair State Soccer Preparation</div>
+
+</body>
+</html>
